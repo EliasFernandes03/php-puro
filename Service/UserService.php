@@ -16,4 +16,9 @@ class UserService
         // Aqui você pode fazer validações, manipulações de dados, etc.
         return $this->userRepository->createUser($userData);
     }
+    public function login($email, $password)
+    {
+        // Call the repository method to validate the login
+        return $this->userRepository->login($email, $password);
+    }
 }

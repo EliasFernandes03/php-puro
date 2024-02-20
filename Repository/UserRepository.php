@@ -23,4 +23,17 @@ class UserRepository
 
         return $this->pdo->lastInsertId();
     }
+    public function login($email, $password)
+    {
+        $query = "SELECT * FROM tb_user WHERE email = :email AND password = :password";
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([
+            'email' => $email,
+            'password' => $password // Note: In production, it's recommended to use password hashing and verification
+        ]);
+
+        return $statement->fetch(PDO::FETCH_ASSOC); // Assuming you want to fetch the user data if login is successful
+    }
+
+    
 }
