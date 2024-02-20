@@ -15,9 +15,6 @@ $container->set('Database', function () {
     return new Database();
 });
 
-// Configuração do Dotenv
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 
 // Roteamento
 $requestMethod = $_SERVER['REQUEST_METHOD'];
