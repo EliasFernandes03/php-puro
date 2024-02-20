@@ -8,22 +8,8 @@ require_once("config.php");
 use DI\ContainerBuilder;
 
 
-// Configuração do contêiner de injeção de dependência
 $containerBuilder = new ContainerBuilder();
 $container = $containerBuilder->build();
-
-// Definição das dependências
-$container->set('UserController', function () use ($container) {
-    return new UserController($container->get('UserService'));
-});
-
-$container->set('UserService', function () use ($container) {
-    return new UserService($container->get('UserRepository'));
-});
-
-$container->set('UserRepository', function () use ($container) {
-    return new UserRepository($container->get('Database'));
-});
 
 $container->set('Database', function () {
     return new Database();
