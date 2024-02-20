@@ -1,5 +1,5 @@
 {
-    "author": "Alessandro Feitoza",
+    "author": "Elias",
     "autoload": {
       "psr-4": {
         "App\\": "src/"

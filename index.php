@@ -1,12 +1,11 @@
 <?php
 
 require 'vendor/autoload.php';
-require_once("UserController.php");
-require_once("UserService.php");
-require_once("UserRepository.php");
+require_once("Controller/UserController.php");
+require_once("Service/UserService.php");
+require_once("Repository/UserRepository.php");
 require_once("config.php");
 use DI\ContainerBuilder;
-
 
 
 // Configuração do contêiner de injeção de dependência
