@@ -29,10 +29,10 @@ class UserRepository
         $statement = $this->pdo->prepare($query);
         $statement->execute([
             'email' => $email,
-            'password' => $password // Note: In production, it's recommended to use password hashing and verification
+            'password' => $password 
         ]);
 
-        return $statement->fetch(PDO::FETCH_ASSOC); // Assuming you want to fetch the user data if login is successful
+        return $statement->fetch(PDO::FETCH_ASSOC); 
     }
 
     
