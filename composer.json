@@ -8,6 +8,7 @@
     "require": {
       "ext-pdo": "*",
       "php-di/php-di": "^6.4",
-      "vlucas/phpdotenv": "^5.4"
+      "vlucas/phpdotenv": "^5.4",
+        "firebase/php-jwt": "^6.10"
     }
   }

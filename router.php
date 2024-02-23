@@ -5,6 +5,7 @@ require_once("Controller/UserController.php");
 require_once("Service/UserService.php");
 require_once("Repository/UserRepository.php");
 require_once("Controller/ConsultController.php"); 
+require_once("Controller/AuthController.php"); 
 require_once("Service/ConsultService.php");      
 require_once("Repository/ConsultRepository.php"); 
 require_once("config.php");
@@ -51,7 +52,7 @@ switch ($requestMethod) {
         
     case 'PUT':
             switch ($requestUri) {
-                case (strpos($requestUri, '/api/consults/') === 0): // Route for updating a consult
+                case (strpos($requestUri, '/api/consults/') === 0): 
                     $id = intval(substr($requestUri, strlen('/api/consults/')));
                     $consultController = $container->get('ConsultController');
                     $consultData = json_decode(file_get_contents('php://input'), true);
@@ -69,11 +70,18 @@ switch ($requestMethod) {
                     $userData = json_decode(file_get_contents('php://input'), true);
                     $userController->createUser($userData);
                     break;
-                case '/api/login':
-                    $userController = $container->get('UserController');
-                    $loginData = json_decode(file_get_contents('php://input'), true);
-                    $userController->login($loginData['email'], $loginData['password']);
-                    break;
+                    case '/api/login':
+                        $authController = $container->get('AuthController'); // Alteração feita aqui
+                        $loginData = json_decode(file_get_contents('php://input'), true);
+                        $token = $authController->login($loginData['email'], $loginData['password']); // Alteração feita aqui
+                        if ($token) {
+                            http_response_code(200);
+                            echo $token; // Já estamos retornando um JSON com o token no AuthController, não precisa fazer o encode novamente
+                        } else {
+                            http_response_code(401);
+                            echo json_encode(array('message' => 'Invalid email or password.'));
+                        }
+                        break;
                 case '/api/consults': // Route for creating a new consult
                     $consultController = $container->get('ConsultController');
                     $consultData = json_decode(file_get_contents('php://input'), true);
@@ -94,3 +102,5 @@ function notFound() {
     header("HTTP/1.0 404 Not Found");
     echo "404 Not Found";
 }
+
+//ESTÁ FALTANDO A QUESTÃO DA VALIDAÇÃO PELO LOGIN, TRATAMENTO DE RESPOSTAS E DE ERROS, DOCUMENTAÇÃO.
