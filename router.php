@@ -14,6 +14,9 @@ use DI\ContainerBuilder;
 
 $containerBuilder = new ContainerBuilder();
 $container = $containerBuilder->build();
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 
 $container->set('Database', function () {
     return new Database();
@@ -36,8 +39,8 @@ switch ($requestMethod) {
                 
                 $token = substr($authorizationHeader, 7); 
             
-                $fixedToken = '1234';
-            
+                $fixedToken =  $_ENV['FIXED_TOKEN'];
+
                 if ($token !== $fixedToken) {
                     http_response_code(401);
                     echo json_encode(array('message' => 'Unauthorized'));
@@ -66,7 +69,7 @@ switch ($requestMethod) {
                 
                 $token = substr($authorizationHeader, 7); 
            
-                $fixedToken = '1234';
+                $fixedToken =  $_ENV['FIXED_TOKEN'];
             
                 if ($token !== $fixedToken) {
                     http_response_code(401);
@@ -99,7 +102,7 @@ switch ($requestMethod) {
                     
                     $token = substr($authorizationHeader, 7); 
                 
-                    $fixedToken = '1234';
+                    $fixedToken =  $_ENV['FIXED_TOKEN'];
                 
                     if ($token !== $fixedToken) {
                         http_response_code(401);
@@ -141,7 +144,7 @@ switch ($requestMethod) {
                     
                     $token = substr($authorizationHeader, 7); 
                 
-                    $fixedToken = '1234';
+                    $fixedToken =  $_ENV['FIXED_TOKEN'];
                 
                     if ($token !== $fixedToken) {
                         http_response_code(401);
