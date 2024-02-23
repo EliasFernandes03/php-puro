@@ -13,8 +13,19 @@ class UserController
 
     public function createUser($userData)
     {
-        // Aqui você pode chamar o serviço para criar o usuário
         $this->userService->createUser($userData);
     }
- 
+    public function login($email, $password)
+    {
+       
+        $user = $this->userService->login($email, $password);
+
+        if ($user) {
+      
+            echo "Login successful! Welcome, {$user['name']}!";
+        } else {
+        
+            echo "Invalid email or password.";
+        }
+    }
 }
